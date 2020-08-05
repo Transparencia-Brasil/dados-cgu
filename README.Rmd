@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   message = F,
   warning = F,
   fig.align="center",
-  echo = F
+  echo = T
 )
 ```
 
@@ -23,21 +23,17 @@ Repositório para atualização da base de dados da CGU.
 * Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
 
 ```{r}
-library(tidyverse)
 URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
-
-txt <- RCurl::getURL(URL)
-txt2 <- capture.output(cat(txt))
-
-str_replace_all(txt2, '\r', '')
+txt <- capture.output(cat(RCurl::getURL(URL)))
+stringr::str_replace_all(txt, '\r', '')
 ```
 
 ```{r}
-arquivos_xml <- "./data-raw" %>% list.files(pattern = ".zip", full.names = T) 
-
-#arquivos_xml %>% map(~unzip(.x, exdir = "./data-raw"))
-
-arquivos_xml
-
+#arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))
+list.files("./data-raw", pattern = ".zip", full.names = T) 
 ```
 
+```{r}
+library(dplyr)
+readRDS("./data-tidy/pedidos_cgu.rds") %>% glimpse()
+```
