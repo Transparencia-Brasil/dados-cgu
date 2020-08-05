@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data-tidy/*.csv
+data-raw/*.xml
+data-raw/*.zip
+data-raw/*.rar
+data-tidy/*.rds
