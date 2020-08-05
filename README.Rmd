@@ -18,7 +18,15 @@ knitr::opts_chunk$set(
 Repositório para atualização da base de dados da CGU.
 
 * Download base de dados - [clique aqui](http://www.consultaesic.cgu.gov.br/busca/_layouts/15/DownloadPedidos/DownloadDados.aspx)
-* Arquivos XML baixados [clique aqui](\data-raw)
-* Código em `python` para tratamento das variáveis - [clique aqui](\code)
-* Arquivos tratados prontos para analisar- [clique aqui](\data-tidy)
+* Arquivos XML baixados [clique aqui](/data-raw)
+* Código em `python` para tratamento das variáveis - [clique aqui](/code)
+* Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
+
+```{r}
+URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
+
+txt <- RCurl::getURL(URL, .encoding = "UTF-8")
+
+writeLines(txt, con = "./data-raw/Dicionario-Dados-Exportacao.txt")
+```
 
