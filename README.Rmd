@@ -32,3 +32,12 @@ txt2 <- capture.output(cat(txt))
 str_replace_all(txt2, '\r', '')
 ```
 
+```{r}
+arquivos_xml <- "./data-raw" %>% list.files(pattern = ".zip", full.names = T) 
+
+#arquivos_xml %>% map(~unzip(.x, exdir = "./data-raw"))
+
+arquivos_xml
+
+```
+

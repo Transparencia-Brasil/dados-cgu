@@ -75,3 +75,9 @@ Repositório para atualização da base de dados da CGU.
     #> [61] "- Pais - texto(200): país de residência do solicitante;"                                                                                                                   
     #> [62] "- UF - texto(2): UF de residência do solicitante;"                                                                                                                         
     #> [63] "- Municipio - texto(200): Município de residência do solicitante;"
+
+    #> [1] "./data-raw/20200311_Arquivos_xml_2018.zip"
+    #> [2] "./data-raw/20200801_Arquivos_xml_2016.zip"
+    #> [3] "./data-raw/20200801_Arquivos_xml_2017.zip"
+    #> [4] "./data-raw/20200801_Arquivos_xml_2019.zip"
+    #> [5] "./data-raw/20200804_Arquivos_xml_2020.zip"
