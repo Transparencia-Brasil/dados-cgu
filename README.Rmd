@@ -23,10 +23,12 @@ Repositório para atualização da base de dados da CGU.
 * Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
 
 ```{r}
+library(tidyverse)
 URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
 
-txt <- RCurl::getURL(URL, .encoding = "UTF-8")
+txt <- RCurl::getURL(URL)
+txt2 <- capture.output(cat(txt))
 
-writeLines(txt, con = "./data-raw/Dicionario-Dados-Exportacao.txt")
+str_replace_all(txt2, '\r', '')
 ```
 
