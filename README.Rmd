@@ -1,5 +1,6 @@
 ---
 output: github_document
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -9,7 +10,7 @@ knitr::opts_chunk$set(
   message = F,
   warning = F,
   fig.align="center",
-  echo = T
+  echo = F
 )
 ```
 
@@ -23,10 +24,73 @@ Repositório para atualização da base de dados da CGU.
 * Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
 
 ```{r}
+library(kableExtra)
+library(tidyverse)
+
 URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
-txt <- capture.output(cat(RCurl::getURL(URL)))
-stringr::str_replace_all(txt, '\r', '')
+
+dicionario <- RCurl::getURL(URL) %>% 
+  str_split("\r\n") %>% 
+  map(as_tibble) %>% 
+  pluck(1) %>% 
+  filter(!str_detect(value, "^----"), value != "") %>% 
+  mutate(
+    value = str_squish(value),
+    Tabela = case_when(
+      str_detect(value, "^--") ~ str_remove(value, "^-- CAMPOS:\\s"),
+      TRUE ~ NA_character_
+    ),
+    Campos = case_when(
+      str_detect(value, "^-\\s") ~ gsub("(^-\\s)(\\w+)(\\s-)(.+$)", "\\2", value),
+      TRUE ~ NA_character_
+    ),
+    Formato = case_when(
+      str_detect(value, "^-\\s") ~ value %>% 
+        gsub("(^-\\s)(\\w+)(\\s-)(.+$)", "\\4", .) %>% 
+        gsub("(^.+)(:.+$)", "\\1", .) %>% 
+        str_squish(),
+      TRUE ~ NA_character_
+    ),
+    Descricao = case_when(
+      str_detect(value, "^-\\s") ~ value %>% 
+        gsub("(^-\\s)(\\w+)(\\s-)(.+$)", "\\4", .) %>% 
+        gsub("(^.+)(:.+$)", "\\2", .) %>%
+        str_remove(":") %>% 
+        str_squish(),
+      TRUE ~ NA_character_
+    ),
+  ) %>% 
+  fill(Tabela) %>% 
+  na.omit() %>% 
+  select(-value) 
+
+
+tabela <- function(tb) {
+  dicionario %>% 
+    filter(Tabela == tb) %>% 
+    select(-Tabela) %>% 
+    kbl(caption = paste("Tabela:", tb)) %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    )
+}
 ```
+
+```{r}
+tabela("PEDIDOS")
+```
+
+```{r}
+tabela("RECURSOS")
+```
+
+```{r}
+tabela("SOLICITANTES")
+```
+
+
+
+
 
 ```{r}
 #arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))

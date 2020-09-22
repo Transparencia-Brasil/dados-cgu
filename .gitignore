@@ -8,3 +8,4 @@ data-raw/*.zip
 data-raw/*.rar
 data-tidy/*.rds
 data-raw/*.csv
+data-raw-old/
