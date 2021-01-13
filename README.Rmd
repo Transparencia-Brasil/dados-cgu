@@ -1,12 +1,9 @@
 ---
 output: github_document
-<<<<<<< HEAD
 always_allow_html: yes
 code_folding: hide
 editor_options: 
   chunk_output_type: console
-=======
->>>>>>> parent of 19118bc... improve README, include download_cgu_files() and include tidy method XML cleaning
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +13,7 @@ knitr::opts_chunk$set(
   message = F,
   warning = F,
   fig.align="center",
-  echo = T
+  echo = F
 )
 ```
 
@@ -29,7 +26,7 @@ Repositório para atualização da base de dados da CGU.
 * Código em `python` para tratamento das variáveis - [clique aqui](/code)
 * Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
 
-<<<<<<< HEAD
+
 ```{r paged.print=TRUE}
 library(kableExtra)
 library(tidyverse)
@@ -109,14 +106,6 @@ tabela("SOLICITANTES")
 
 Últimas versões dos arquivos:
 
-=======
-```{r}
-URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
-txt <- capture.output(cat(RCurl::getURL(URL)))
-stringr::str_replace_all(txt, '\r', '')
-```
-
->>>>>>> parent of 19118bc... improve README, include download_cgu_files() and include tidy method XML cleaning
 ```{r}
 #arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))
 here("data_raw") %>% 
