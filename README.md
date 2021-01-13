@@ -3,12 +3,29 @@
 
 Repositório para atualização da base de dados da CGU.
 
-  - Download base de dados - [clique
+  - Download manual base de dados - [clique
     aqui](http://www.consultaesic.cgu.gov.br/busca/_layouts/15/DownloadPedidos/DownloadDados.aspx)
-  - Arquivos XML baixados [clique aqui](/data-raw)
-  - Código em `python` para tratamento das variáveis - [clique
-    aqui](/code)
-  - Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
+  - Scripts neste repositório
+      - **RAW DATA**:
+        [**`download_dados_cgu.R`**](code/download_dados_cgu.R) é uma
+        função para fazer o **download automatizado** da base direto do
+        `R` utilizando o pacote `Rselenium`.
+      - **LOAD DATA**:
+        [**`abre_e_limpa_os_dados.R`**](code/abre_e_limpa_os_dados.R) é
+        um código em `R`para **processamento e limpeza** do dado bruto
+        baixado do site da CGU. Ele descompacta o arquivo bruto e
+        converte de `xml` para uma `tibble` pronta para análise com o
+        **`R`**.
+      - **UPDATE DATA**:
+        [**`organiza_fluxo_de_diretoios_para_download_com_bkp.R`**](code/organiza_fluxo_de_diretoios_para_download_com_bkp.R)
+        é um procedimento de atualização dos arquivos baixados
+        localmente escrito em linguagem `R`. Esse procedimento utiliza a
+        função [`download_dados_cgu.R`](code/download_dados_cgu.R) para
+        baixar os dados e organiza os arquivos uma estrutura de
+        diretórios com registros de atualização da base de dados. É
+        importante manter um controle das atualizações da base na medida
+        em que os pedidos vão sendo respondidos ou recursos são
+        incluídos aos pedidos.
 
 ## Tabelas e descrição das colunas:
 
