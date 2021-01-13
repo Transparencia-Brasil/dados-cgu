@@ -1,4 +1,3 @@
-library(tidyverse)
 
 # converte csv para rds: -------------------------------------------------------
 
@@ -19,10 +18,5 @@ pryr::object_size(recursos_cgu)
 
 ### salva rds
 saveRDS(recursos_cgu, "./data-tidy/recursos_cgu.rds")
-
-
-
-read_rds("./data-tidy/pedidos_cgu.rds") %>% glimpse()
-read_rds("./data-tidy/recursos_cgu.rds") %>% glimpse()
 
 # FIM

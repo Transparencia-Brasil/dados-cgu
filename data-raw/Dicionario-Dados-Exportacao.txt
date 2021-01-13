@@ -1,0 +1,63 @@
+------------------------------
+-- CAMPOS: PEDIDOS
+------------------------------
+- IdPedido - inteiro: identificador <fa>nico do pedido (n<e3>o mostrado no sistema);
+- ProtocoloPedido - texto(17): n<fa>mero do protocolo do pedido;
+- OrgaoSuperiorAssociadoaoDestinatario - texto(250): Quando o <f3>rg<e3>o for vinculado, este campo traz o nome do seu <f3>rg<e3>o superior;
+- OrgaoDestinatario  - texto(250): nome do <f3>rg<e3>o destinat<e1>rio do pedido;
+- Situacao - texto(200): descri<e7><e3>o da situa<e7><e3>o do pedido;
+- DataRegistro - Data DD/MM/AAAA HH:MM:SS : data de abertura do pedido;
+- ResumoSolicitacao - texto(255): resumo do pedido;
+- DetalhamentoSolicitacao - texto(2048): detalhamento do pedido;
+- PrazoAtendimento - Data DD/MM/AAAA HH:MM:ss : data limite para atendimento ao pedido;
+- FoiProrrogado - texto(3) "Sim" ou "N<e3>o" : informa se houve prorroga<e7><e3>o do prazo do pedido;
+- FoiReencaminhado - texto(3) "Sim" ou "N<e3>o": informa se o pedido foi reencaminhado;
+- FormaResposta - texto(200): tipo de resposta escolhida pelo solicitante na abertura do pedido;
+- OrigemSolicitacao - texto(50): informa se o pedido foi aberto em um Balc<e3>o SIC ou pela Internet;
+- IdSolicitante - inteiro: identificador <fa>nico do solicitante (n<e3>o mostrado no sistema);
+- CategoriaPedido - texto(200) : categoria do pedido atribu<ed>da pel SIC de acordo com o VCGE (Vocabul<e1>rio COntrolado do GOverno Eletr<f4>nico);
+- SubCategoriaPedido - texto(200) : subcategoria do pedido atribu<ed>da pel SIC de acordo com o VCGE (Vocabul<e1>rio COntrolado do GOverno Eletr<f4>nico);
+- NumeroPerguntas - inteiro : n<fa>mero de perguntas feitas no pedido;
+- DataResposta - Data DD/MM/AAAA HH:MM:SS : data da resposta ao pedido (campo em branco para pedidos que ainda estejam na situa<e7><e3>o "Em Tramita<e7><e3>o");
+- Resposta - texto(8000): resposta ao pedido;
+- TipoResposta - texto(100) : tipo resposta dada ao pedido (campo em branco para pedidos que ainda estejam na situa<e7><e3>o "Em Tramita<e7><e3>o");
+- ClassificacaoTipoResposta - texto(200): subtipo da resposta dada ao pedido (campo em branco para pedidos que ainda estejam na situa<e7><e3>o "Em Tramita<e7><e3>o");
+
+
+------------------------------
+-- CAMPOS: RECURSOS
+------------------------------
+
+- IdRecurso - inteiro: identificador <fa>nico do recurso (n<e3>o mostrado no sistema);
+- IdRecursoPrecedente - inteiro: identificador <fa>nico do recurso que precedeu este (n<e3>o mostrado no sistema e em branco no caso de Recursos de 1<U+00AA> Inst<e2>ncia e Reclama<e7><f5>es);
+- DescRecurso - texto(8000): descri<e7><e3>o do recurso;
+- IdPedido - inteiro: identificador <fa>nico do pedido ao qual o recurso pertence (n<e3>o mostrado no sistema);
+- IdSolicitante - inteiro: identificador <fa>nico do solicitante (n<e3>o mostrado no sistema);
+- ProtocoloPedido - texto(17): n<fa>mero do protocolo do pedido ao qual o recurso pertence;
+- OrgaoSuperiorAssociadoaoDestinatario - texto(250): Quando o <f3>rg<e3>o for vinculado, este campo traz o nome do seu <f3>rg<e3>o superior;
+- OrgaoDestinatario - texto(250): nome do <f3>rg<e3>o destinat<e1>rio do recurso;
+- Instancia - texto(80): descri<e7><e3>o da inst<e2>ncia do recurso;
+- Situacao - texto(80): descri<e7><e3>o da situa<e7><e3>o do recurso;
+- DataRegistro - Data DD/MM/AAAA HH:MM:SS : data de abertura do recurso;
+- PrazoAtendimento - Data DD/MM/AAAA HH:MM:SS : data limite para atendimento ao recurso;
+- OrigemSolicitacao - texto(50): informa se o recurso foi aberto em um Balc<e3>o SIC ou pela Internet;
+- TipoRecurso - texto(80): motivo de abertura do recurso;
+- DataResposta - Data DD/MM/AAAA HH:MM:SS : data da resposta ao recurso (campo em branco para recursos que ainda estejam na situa<e7><e3>o "Em Tramita<e7><e3>o");
+- RespostaRecurso - texto(8000): resposta ao recurso;
+- TipoResposta - texto(80): tipo resposta dada ao recurso (campo em branco para recursos que ainda estejam na situa<e7><e3>o "Em Tramita<e7><e3>o");
+
+
+------------------------------
+-- CAMPOS: SOLICITANTES
+------------------------------
+
+- IdSolicitante - inteiro: identificador <fa>nico do solicitante (n<e3>o mostrado no sistema);
+- TipoDemandante - texto(15): Pessoa F<ec>sica ou Pessoa Jur<ed>dica;
+- DataNascimento - Data DD/MM/AAAA : data de nascimento do solicitante;
+- Sexo - texto(13) : Masculino ou Feminino (em branco para pessoa jur<ed>dica);
+- Escolaridade - texto(200): Escolaridade do solicitante (em branco para pessoa jur<ed>dica);
+- Profissao - texto(200): Profiss<e3>o do solicitante (em branco para pessoa jur<ed>dica);
+- TipoPessoaJuridica - texto(200): tipo de Pessoa Jur<ed>dica do solicitante (em branco para pessoa f<ed>sica)
+- Pais - texto(200): pa<ed>s de resid<ea>ncia do solicitante;
+- UF - texto(2): UF de resid<ea>ncia do solicitante;
+- Municipio - texto(200): Munic<ed>pio de resid<ea>ncia do solicitante;

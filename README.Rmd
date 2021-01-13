@@ -1,6 +1,12 @@
 ---
 output: github_document
+<<<<<<< HEAD
 always_allow_html: yes
+code_folding: hide
+editor_options: 
+  chunk_output_type: console
+=======
+>>>>>>> parent of 19118bc... improve README, include download_cgu_files() and include tidy method XML cleaning
 ---
 
 ```{r setup, include=FALSE}
@@ -10,11 +16,11 @@ knitr::opts_chunk$set(
   message = F,
   warning = F,
   fig.align="center",
-  echo = F
+  echo = T
 )
 ```
 
-# Download dos dados da de acesso a informação via LAI
+# Download dos dados do site Consulta E-sic/CGU
 
 Repositório para atualização da base de dados da CGU.
 
@@ -23,9 +29,12 @@ Repositório para atualização da base de dados da CGU.
 * Código em `python` para tratamento das variáveis - [clique aqui](/code)
 * Arquivos tratados prontos para analisar- [clique aqui](/data-tidy)
 
-```{r}
+<<<<<<< HEAD
+```{r paged.print=TRUE}
 library(kableExtra)
 library(tidyverse)
+library(stringr)
+library(here)
 
 URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
 
@@ -41,7 +50,7 @@ dicionario <- RCurl::getURL(URL) %>%
       TRUE ~ NA_character_
     ),
     Campos = case_when(
-      str_detect(value, "^-\\s") ~ gsub("(^-\\s)(\\w+)(\\s-)(.+$)", "\\2", value),
+      str_detect(value, "^-\\s") ~ gsub("(^-\\s)(\\w+)(\\s-)(.+$)", "**`\\2`**", value),
       TRUE ~ NA_character_
     ),
     Formato = case_when(
@@ -51,7 +60,7 @@ dicionario <- RCurl::getURL(URL) %>%
         str_squish(),
       TRUE ~ NA_character_
     ),
-    Descricao = case_when(
+    `Descrição` = case_when(
       str_detect(value, "^-\\s") ~ value %>% 
         gsub("(^-\\s)(\\w+)(\\s-)(.+$)", "\\4", .) %>% 
         gsub("(^.+)(:.+$)", "\\2", .) %>%
@@ -66,38 +75,62 @@ dicionario <- RCurl::getURL(URL) %>%
 
 
 tabela <- function(tb) {
-  dicionario %>% 
-    filter(Tabela == tb) %>% 
-    select(-Tabela) %>% 
-    kbl(caption = paste("Tabela:", tb)) %>%
-    kable_styling(
+  dicionario %>%
+    filter(Tabela == tb) %>%
+    select(-Tabela) %>%
+    kbl() %>%
+    kable_paper(
       bootstrap_options = c("striped", "hover", "condensed", "responsive")
     )
 }
 ```
 
-```{r}
+## Tabelas e descrição das colunas:
+
+### Tabela: Pedidos
+
+```{r paged.print=TRUE}
 tabela("PEDIDOS")
 ```
 
-```{r}
+### Tabela: Recursos
+
+```{r paged.print=TRUE}
 tabela("RECURSOS")
 ```
 
-```{r}
+### Tabela: Solicitantes
+
+```{r paged.print=TRUE}
 tabela("SOLICITANTES")
 ```
 
+## Última versão disponível
 
+Últimas versões dos arquivos:
 
-
-
+=======
 ```{r}
-#arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))
-list.files("./data-raw", pattern = ".zip", full.names = T) 
+URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
+txt <- capture.output(cat(RCurl::getURL(URL)))
+stringr::str_replace_all(txt, '\r', '')
 ```
 
+>>>>>>> parent of 19118bc... improve README, include download_cgu_files() and include tidy method XML cleaning
 ```{r}
-library(dplyr)
-readRDS("./data-tidy/pedidos_cgu.rds") %>% glimpse()
+#arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))
+here("data_raw") %>% 
+  list.files(pattern = ".zip", full.names = T, include.dirs = T, recursive = T) %>% 
+  file.info() %>% 
+  tibble(Arquivo = str_remove(rownames(.), "^.+data_raw\\/\\d{4}\\/")) %>% 
+  transmute(
+    Arquivo, 
+    `Tamanho (mb)` = round(size/(1024^2),1),
+    `Data do download` = ctime
+  ) %>% kbl()
+```
+
+
+```{r}
+#readRDS(here("data_tidy/pedidos_cgu.rds")) %>% glimpse()
 ```

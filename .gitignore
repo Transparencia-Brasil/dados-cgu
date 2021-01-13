@@ -2,10 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
-data-tidy/*.csv
+data_tidy/*
 data-raw/*.xml
 data-raw/*.zip
 data-raw/*.rar
+data_raw/*
 data-tidy/*.rds
 data-raw/*.csv
 data-raw-old/
+ignore/*
+data-tidy/*
