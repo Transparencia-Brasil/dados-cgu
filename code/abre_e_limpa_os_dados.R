@@ -5,7 +5,7 @@ library(tidyverse)
 library(xml2)
 
 # UNZIP ========================================================================
-# unzip: to extraindo os arquivos no diretório temporário `tempdir()`
+# unzip: tô extraindo os arquivos no diretório temporário `tempdir()`
 # os arquivos brutos (xml) moram na pasta 'data_raw/'
 # a função abaixo vai em 'data_raw/' com sprintf(.) e here(.)
 # extrai o endereço dos arquivos em loop com list.files(.)
