@@ -6,9 +6,15 @@ data_tidy/*
 data-raw/*.xml
 data-raw/*.zip
 data-raw/*.rar
-data_raw/*
 data-tidy/*.rds
 data-raw/*.csv
 data-raw-old/
 ignore/*
 data-tidy/*
+
+data_raw/2016/*.zip
+data_raw/2017/*.zip
+data_raw/2018/*.zip
+data_raw/2019/*.zip
+data_raw/2020/*.zip
+data_raw/2021/*.zip

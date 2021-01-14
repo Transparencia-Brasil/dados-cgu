@@ -19,4 +19,4 @@ pryr::object_size(recursos_cgu)
 ### salva rds
 saveRDS(recursos_cgu, "./data-tidy/recursos_cgu.rds")
 
-# FIM
+# FIM 
