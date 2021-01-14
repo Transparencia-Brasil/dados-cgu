@@ -17,7 +17,7 @@ Repositório para atualização da base de dados da CGU.
         converte de `xml` para uma `tibble` pronta para análise com o
         **`R`**.
       - **UPDATE DATA**:
-        [**`organiza_fluxo_de_diretoios_para_download_com_bkp.R`**](code/organiza_fluxo_de_diretoios_para_download_com_bkp.R)
+        [**`organiza_fluxo_de_diretorios_para_download_com_bkp.R`**](code/organiza_fluxo_de_diretorios_para_download_com_bkp.R)
         é um procedimento de atualização dos arquivos baixados
         localmente escrito em linguagem `R`. Esse procedimento utiliza a
         função [`download_dados_cgu.R`](code/download_dados_cgu.R) para
@@ -1184,7 +1184,7 @@ Data do download
 
 <td style="text-align:left;">
 
-2021-01-13 17:12:44
+2021-01-13 23:48:10
 
 </td>
 
@@ -1194,19 +1194,19 @@ Data do download
 
 <td style="text-align:left;">
 
-20210111\_Arquivos\_xml\_2017.zip
+20210113\_Arquivos\_xml\_2017.zip
 
 </td>
 
 <td style="text-align:right;">
 
-112.6
+112.7
 
 </td>
 
 <td style="text-align:left;">
 
-2021-01-13 17:12:45
+2021-01-13 23:32:41
 
 </td>
 
@@ -1216,19 +1216,19 @@ Data do download
 
 <td style="text-align:left;">
 
-20210111\_Arquivos\_xml\_2018.zip
+20210113\_Arquivos\_xml\_2018.zip
 
 </td>
 
 <td style="text-align:right;">
 
-114.8
+115.0
 
 </td>
 
 <td style="text-align:left;">
 
-2021-01-13 17:12:45
+2021-01-13 23:34:02
 
 </td>
 
@@ -1238,19 +1238,19 @@ Data do download
 
 <td style="text-align:left;">
 
-20210111\_Arquivos\_xml\_2019.zip
+20210113\_Arquivos\_xml\_2019.zip
 
 </td>
 
 <td style="text-align:right;">
 
-120.3
+120.5
 
 </td>
 
 <td style="text-align:left;">
 
-2021-01-13 17:12:46
+2021-01-13 23:35:19
 
 </td>
 
@@ -1260,19 +1260,19 @@ Data do download
 
 <td style="text-align:left;">
 
-20210111\_Arquivos\_xml\_2020.zip
+20210113\_Arquivos\_xml\_2020.zip
 
 </td>
 
 <td style="text-align:right;">
 
-136.9
+137.4
 
 </td>
 
 <td style="text-align:left;">
 
-2021-01-13 17:12:49
+2021-01-13 23:36:38
 
 </td>
 
@@ -1282,19 +1282,19 @@ Data do download
 
 <td style="text-align:left;">
 
-20210111\_Arquivos\_xml\_2021.zip
+20210113\_Arquivos\_xml\_2021.zip
 
 </td>
 
 <td style="text-align:right;">
 
-54.5
+54.9
 
 </td>
 
 <td style="text-align:left;">
 
-2021-01-13 17:12:49
+2021-01-13 23:37:55
 
 </td>
 
