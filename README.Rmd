@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Download dos dados do site Consulta E-sic/CGU
+# Download e tratamento dos dados do site Consulta E-sic/CGU com `R`
 
 Repositório para atualização da base de dados da CGU.
 
@@ -28,12 +28,31 @@ Repositório para atualização da base de dados da CGU.
   + **UPDATE DATA**: [**`organiza_fluxo_de_diretorios_para_download_com_bkp.R`**](code/organiza_fluxo_de_diretorios_para_download_com_bkp.R) é um procedimento de atualização dos arquivos baixados localmente escrito em linguagem `R`. Esse procedimento utiliza a função [`download_dados_cgu.R`](code/download_dados_cgu.R) para baixar os dados e organiza os arquivos uma estrutura de diretórios com registros de atualização da base de dados. É importante manter um controle das atualizações da base na medida em que os pedidos vão sendo respondidos ou recursos são incluídos aos pedidos.
 
 
+## Última versão disponível
 
-```{r paged.print=TRUE}
+Últimas versões dos arquivos:
+
+
+```{r}
 library(kableExtra)
 library(tidyverse)
 library(stringr)
 library(here)
+
+#arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))
+here("data_raw") %>% 
+  list.files(pattern = ".zip", full.names = T, include.dirs = T, recursive = T) %>% 
+  file.info() %>% 
+  tibble(Arquivo = str_remove(rownames(.), "^.+data_raw\\/\\d{4}\\/")) %>% 
+  transmute(
+    Arquivo, 
+    `Tamanho (mb)` = round(size/(1024^2),1),
+    `Data do download` = ctime
+  ) %>% kbl()
+```
+
+```{r paged.print=TRUE}
+
 
 URL <- "http://www.consultaesic.cgu.gov.br/arquivosRelatorios/PedidosRespostas/Dicionario-Dados-Exportacao.txt"
 
@@ -104,22 +123,7 @@ tabela("RECURSOS")
 tabela("SOLICITANTES")
 ```
 
-## Última versão disponível
 
-Últimas versões dos arquivos:
-
-```{r}
-#arquivos_xml %>% purrr::map(~unzip(.x, exdir = "./data-raw"))
-here("data_raw") %>% 
-  list.files(pattern = ".zip", full.names = T, include.dirs = T, recursive = T) %>% 
-  file.info() %>% 
-  tibble(Arquivo = str_remove(rownames(.), "^.+data_raw\\/\\d{4}\\/")) %>% 
-  transmute(
-    Arquivo, 
-    `Tamanho (mb)` = round(size/(1024^2),1),
-    `Data do download` = ctime
-  ) %>% kbl()
-```
 
 
 ```{r}

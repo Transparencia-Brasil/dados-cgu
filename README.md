@@ -1,5 +1,5 @@
 
-# Download dos dados do site Consulta E-sic/CGU
+# Download e tratamento dos dados do site Consulta E-sic/CGU com `R`
 
 Repositório para atualização da base de dados da CGU.
 
@@ -26,6 +26,176 @@ Repositório para atualização da base de dados da CGU.
         importante manter um controle das atualizações da base na medida
         em que os pedidos vão sendo respondidos ou recursos são
         incluídos aos pedidos.
+
+## Última versão disponível
+
+Últimas versões dos arquivos:
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+Arquivo
+
+</th>
+
+<th style="text-align:right;">
+
+Tamanho (mb)
+
+</th>
+
+<th style="text-align:left;">
+
+Data do download
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+20201022\_Arquivos\_xml\_2016.zip
+
+</td>
+
+<td style="text-align:right;">
+
+90.8
+
+</td>
+
+<td style="text-align:left;">
+
+2021-01-13 23:48:10
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+20210113\_Arquivos\_xml\_2017.zip
+
+</td>
+
+<td style="text-align:right;">
+
+112.7
+
+</td>
+
+<td style="text-align:left;">
+
+2021-01-13 23:32:41
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+20210113\_Arquivos\_xml\_2018.zip
+
+</td>
+
+<td style="text-align:right;">
+
+115.0
+
+</td>
+
+<td style="text-align:left;">
+
+2021-01-13 23:34:02
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+20210113\_Arquivos\_xml\_2019.zip
+
+</td>
+
+<td style="text-align:right;">
+
+120.5
+
+</td>
+
+<td style="text-align:left;">
+
+2021-01-13 23:35:19
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+20210113\_Arquivos\_xml\_2020.zip
+
+</td>
+
+<td style="text-align:right;">
+
+137.4
+
+</td>
+
+<td style="text-align:left;">
+
+2021-01-13 23:36:38
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+20210113\_Arquivos\_xml\_2021.zip
+
+</td>
+
+<td style="text-align:right;">
+
+54.9
+
+</td>
+
+<td style="text-align:left;">
+
+2021-01-13 23:37:55
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 ## Tabelas e descrição das colunas:
 
@@ -1125,176 +1295,6 @@ texto(200)
 <td style="text-align:left;">
 
 Município de residência do solicitante;
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-## Última versão disponível
-
-Últimas versões dos arquivos:
-
-<table>
-
-<thead>
-
-<tr>
-
-<th style="text-align:left;">
-
-Arquivo
-
-</th>
-
-<th style="text-align:right;">
-
-Tamanho (mb)
-
-</th>
-
-<th style="text-align:left;">
-
-Data do download
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-20201022\_Arquivos\_xml\_2016.zip
-
-</td>
-
-<td style="text-align:right;">
-
-90.8
-
-</td>
-
-<td style="text-align:left;">
-
-2021-01-13 23:48:10
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-20210113\_Arquivos\_xml\_2017.zip
-
-</td>
-
-<td style="text-align:right;">
-
-112.7
-
-</td>
-
-<td style="text-align:left;">
-
-2021-01-13 23:32:41
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-20210113\_Arquivos\_xml\_2018.zip
-
-</td>
-
-<td style="text-align:right;">
-
-115.0
-
-</td>
-
-<td style="text-align:left;">
-
-2021-01-13 23:34:02
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-20210113\_Arquivos\_xml\_2019.zip
-
-</td>
-
-<td style="text-align:right;">
-
-120.5
-
-</td>
-
-<td style="text-align:left;">
-
-2021-01-13 23:35:19
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-20210113\_Arquivos\_xml\_2020.zip
-
-</td>
-
-<td style="text-align:right;">
-
-137.4
-
-</td>
-
-<td style="text-align:left;">
-
-2021-01-13 23:36:38
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-20210113\_Arquivos\_xml\_2021.zip
-
-</td>
-
-<td style="text-align:right;">
-
-54.9
-
-</td>
-
-<td style="text-align:left;">
-
-2021-01-13 23:37:55
 
 </td>
 
