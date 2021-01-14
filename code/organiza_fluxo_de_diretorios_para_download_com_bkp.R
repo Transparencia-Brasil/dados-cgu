@@ -1,98 +1,83 @@
 # FLUXO DE ATUALIZAÇÃO =========================================================
 library(tidyverse)
-library(here)
-
-#' @title Atualização da base de dados com backup e histórico de downloads
-#' 
-#' Chama a função `download_cgu_files(...)`, faz o download dos dados e cria um registro de downloads, transfere arquivo antigo para backup registrando saída.
-#' Os dados são baixados de http://www.consultaesic.cgu.gov.br/busca/_layouts/15/DownloadPedidos/DownloadDados.aspx
-#' 
-#' @param ano inteiro
-#' 
-#' @usage atualiza_base(ano == "2019")
-#' 
+library(glue)
 
 atualiza_base <- function(ano) {
   
-  # diretórios ----
-  path <- here(paste0("data_raw/", ano))
-  path_historico <- paste0(path, "/historico_downloads.rds")
+  # INICIA FLUXO DE ATUALIZAÇÂO ==================================================
   
-  # cria os diretórios
-  dir.create(path, recursive = T)
-  dir.create(paste0("./data_bkp/", ano), recursive = T)
+  is_first_download <- !file.exists(here(glue("data_raw/{ano}")))
   
-  # tabela histórico ----
-  if (!file.exists(path_historico)) {
+  if (is_first_download == TRUE) { 
     
-    file.info(path) %>%
-      rownames_to_column(var = "arquivo") %>% 
-      saveRDS(path_historico)
+    # caso seja a primeira vez que o download é feito
+    # . montamos do zero a estrutura de diretórios
+    message("Este é o primeiro download, vamos criar a estrutura de diretórios do zero")
     
-    message("criada lista histórico dos downloads")
+    # . criando as pastas...
+    dir.create("data_raw") 
+    dir.create("data_bkp") 
+    message("pasta 'data_raw' e 'data_bkp' criada")
     
-    file.info(path_historico) %>%
-      rownames_to_column(var = "arquivo") %>% 
-      bind_rows(readRDS(path_historico), .) %>% 
-      saveRDS(path_historico)
+    # . criando as subpastas...
+    glue("data_raw/{ano}") %>% here() %>% dir.create()
+    glue("data_bkp/{ano}") %>% here() %>% dir.create()
+    message(glue("subpastas de {ano} em 'data_raw' e 'data_bkp' criadas"))
     
-    historico <- readRDS(path_historico)
-    print(historico)
+    # . e criando a ficha de registro...
+    ficha_de_registro <- tibble(
+      nome_do_arquivo = "criação da pasta de backup",
+      tamanho = NA,
+      data_download = Sys.time()
+    )
+    
+    saveRDS(ficha_de_registro, glue("data_bkp/{ano}/ficha_de_registro_{ano}.rds"))
+    message("relatório de backup pronto para uso")
+    
+    # e uma log de inicialização
+    cat(glue("repositório iniciado em {Sys.time()}"), file = glue("data_raw/{ano}/log_de_incializacao_de_fluxo.txt"))
+    message("log de inicialização de fluxo criado")
     
   } else {
     
-    message("carrega arquivo de atualização de histórico")
-    
-    historico <- readRDS(path_historico)
-    print(historico)
+    # caso a NÃO seja a primeira vez que odownload é feito, seguimos em frente
+    message("Atualizando estrutura de diretórios existente")
     
   }
   
-  # backup e registro no histórico ----
-  # move arquivo antigo para bkp e faz o registro de saída
-  if (!identical(list.files(path ,pattern = "zip", full.names = TRUE), character(0))) {
-    
-    arquivo_old <- path %>% 
-      list.files(full.names = T, pattern = "zip$") %>% 
-      file.info() %>% 
-      filter(ctime == min(ctime)) %>%
-      rownames_to_column(var = "arquivo") %>% 
-      mutate(fluxo = "saída")
-    
-    historico <- bind_rows(historico, arquivo_old) 
-    saveRDS(historico, path_historico)
-    
-    print(historico)
-    message("historico atualizado")
-    
-    file.copy(from = arquivo_old$arquivo, to = str_replace(arquivo_old$arquivo, "raw", "bkp"))
-    message("arquivo antigo movido para pasta data_bkp")
-    
-    unlink(arquivo_old$arquivo)
-    message("arquivo antigo removido da pasta data_raw")
-    
-  } else {
-    
-    message("arquivo de backup não encontrado")
-    
-  }
+  # MOVIMENTA ARQUIVO E PREENCHE FICHA DE REGISTRO ===============================
   
-  # donwload_cgu_files ----
-  # chamar o novo download
-  download_cgu_files(ano = ano, dest.file = str_replace_all(path, "/", fixed("\\\\")))
-  Sys.sleep(60)
+  # precisa mover o arquivo antigo para a pasta de backup
+  arquivo_old <- glue("data_raw/{ano}") %>% here() %>% dir(full.names = T)
   
-  # registra nova base ----
-  # faz o registro de entrada da nova base
-  arquivo_new <- list.files(path ,pattern = "zip", full.names = TRUE) %>% 
+  # e precisa atualizar a ficha de regustro
+  registro_old <- arquivo_old %>% 
     file.info() %>% 
-    rownames_to_column(var = "arquivo") %>% 
-    mutate(fluxo = "entrada")
+    transmute(
+      nome_do_arquivo = row.names(.) %>% str_remove(glue("^.+{ano}/")),
+      tamanho = paste(round(size/(1024^2),2), "mb"),
+      data_download = ctime
+    )
   
-  historico <- bind_rows(historico, arquivo_new) 
-  historico %>% saveRDS(path_historico)
-  print(historico)
-  message("historico atualizaado")
+  glue("data_bkp/{ano}/ficha_de_registro_{ano}.rds") %>% 
+    readRDS() %>% 
+    bind_rows(registro_old) %>% 
+    saveRDS(glue("data_bkp/{ano}/ficha_de_registro_{ano}.rds"))
+  
+  # remove arquivo de bkp antigo 
+  glue("data_bkp/{ano}") %>% list.files(pattern = "zip", full.names = TRUE) %>% unlink()
+  
+  # transfere arquivo de bakp mais recente
+  file.copy(from = arquivo_old, to = str_replace(arquivo_old, "raw", "bkp"))
+  
+  # limpa a pasta "data_raw"
+  unlink(arquivo_old)
+  
+  # DOWNLOAD DO NOVO ARQUIVO =====================================================
+  # chamar o novo download
+  source(here("code/download_dados_cgu.R"))
+  download_cgu_files(ano = glue("{ano}"), dest.file = glue("data_raw/{ano}") %>% here() %>% str_replace_all("/", fixed("\\\\")))
+  Sys.sleep(60)
   
 }
 

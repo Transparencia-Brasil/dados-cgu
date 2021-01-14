@@ -18,3 +18,10 @@ data_raw/2018/*.zip
 data_raw/2019/*.zip
 data_raw/2020/*.zip
 data_raw/2021/*.zip
+
+data_bkp/2016/*.zip
+data_bkp/2017/*.zip
+data_bkp/2018/*.zip
+data_bkp/2019/*.zip
+data_bkp/2020/*.zip
+data_bkp/2021/*.zip
